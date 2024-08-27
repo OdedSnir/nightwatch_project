@@ -1,0 +1,1 @@
+#python way to treat a dircetory like a pacage and a way to import the app modules elsewrer in your project

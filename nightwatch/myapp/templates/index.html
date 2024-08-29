@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>index</title>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" >
+</head>
+<body>
+<div class="container">
+        <h1>
+        nightwatch app
+    </h1>
+    <ul>
+        {% for MOS in MOSs %}
+            <li>{{ MOS }}</li>
+        {% endfor %}
+    </ul>
+</div>
+    <script src="{% static "js/script.js" %}"></script>
+
+</body>
+</html>

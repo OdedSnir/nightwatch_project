@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" >
+    <script src="{% static 'js/register_form_handler.js' %}"></script>
+</head>
+<body>
+<div class="container">
+        <h1>Register</h1>
+    <form method="post">
+        {% csrf_token %}
+        <h2>User Information</h2>
+        {{ user_form.as_p }}
+
+        <h2>Nightwatch User Information</h2>
+        {{ nightwatch_form.as_p }}
+
+        <button type="submit">Register</button>
+    </form>
+
+</div>
+</body>
+</html>

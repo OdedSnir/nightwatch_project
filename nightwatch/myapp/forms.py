@@ -44,3 +44,4 @@ class NightwatchUserForm(forms.ModelForm):
                 print(error)
         elif self.instance.pk and self.instance.platoon:
             self.fields['team'].queryset = Team.objects.filter(platoon=self.instance.platoon).order_by('letter')
+

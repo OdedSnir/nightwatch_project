@@ -1,7 +1,9 @@
 import django.contrib.auth.models
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import timedelta
+from django.utils import timezone
+from django.forms.models import model_to_dict
 class MOS(models.Model):
     name = models.CharField(max_length=100, null=False, unique=True)
     description = models.TextField()
@@ -33,7 +35,8 @@ class Company(models.Model):
     brigade = models.ForeignKey(Brigade, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f"Company {self.letter}"
+
+        return f"Company {self.letter} of {str(self.brigade or '---') } brigade"
 
 
 class Platoon(models.Model):
@@ -44,7 +47,7 @@ class Platoon(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f"Platoon {self.letter}"
+        return f"Platoon {self.letter}, {str(self.company or '---')}"
 
 
 class Team(models.Model):
@@ -53,7 +56,7 @@ class Team(models.Model):
     platoon = models.ForeignKey(Platoon, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f"Team {self.letter}"
+        return f"Team {self.letter}, {str(self.platoon or '---')}"
 
 
 class NightwatchUser(models.Model):
@@ -68,8 +71,29 @@ class NightwatchUser(models.Model):
 
 
     def __str__(self):
-        return self.user.username + " " + str(self.personal_number)
+        if self.user is not None:
+            return self.user.username + " " + str(self.personal_number)
+        else:
+            return "Nightwatch User" + " " + str(self.personal_number)
 
+    def get_presentable_dict(self):
+        dict = model_to_dict(self)
+        if self.brigade is not None:
+            dict['brigade'] = self.brigade.name
+        if self.company is not None:
+            dict['company'] = self.company.letter
+        if self.platoon is not None:
+            dict['platoon'] = self.platoon.letter
+        if self.team is not None:
+            dict['team'] = self.team.letter
+        return dict
+
+
+    def delete_with_user(self):
+        if self.user is not None:
+            user:User = self.user
+            user.delete()
+        self.delete()
 
 class UserMOS(models.Model):
     user = models.ForeignKey(NightwatchUser, on_delete=models.CASCADE)
@@ -116,3 +140,21 @@ class UserShift(models.Model):
 
     def __str__(self):
         return f"{self.user.name} on Shift {self.shift.id}"
+
+
+def delete_users_and_NWUsers_by_hour_back(hours:int = 1):
+    if hours >= 1:
+        now = timezone.now()
+        hours_back = now - timedelta(hours=hours)
+        users_ids =[
+            item['id'] for item in User.objects.filter(date_joined__gte=hours_back).values('id')
+        ]
+        nw_users = NightwatchUser.objects.filter(user__id__in=users_ids)
+        for nw_user in nw_users:
+            nw_user.delete_with_user()
+
+def delete_team_with_users(team:Team):
+    nw_users = NightwatchUser.objects.filter(team=team)
+    for nw_user in nw_users:
+        nw_user.delete_with_user()
+    team.delete()

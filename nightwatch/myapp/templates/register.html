@@ -16,8 +16,6 @@
         {% csrf_token %}
         <h2>User Information</h2>
         {{ user_form.as_p }}
-
-        <h2>Nightwatch User Information</h2>
         {{ nightwatch_form.as_p }}
 
         <button type="submit">Register</button>

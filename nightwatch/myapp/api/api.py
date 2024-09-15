@@ -4,8 +4,9 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def sample(request: HttpRequest) -> JsonResponse:
     message = ''
+    user = request.user
     if request.method == 'GET':
-        message = 'Hello World!'
+        message = f'Hello {user}'
     elif request.method == 'POST':
         message: 'Post response received!'
     data = {'message': message}

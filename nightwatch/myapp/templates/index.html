@@ -14,11 +14,28 @@
         <h1>
         nightwatch app
     </h1>
-    <ul>
-        {% for MOS in MOSs %}
-            <li>{{ MOS }}</li>
-        {% endfor %}
-    </ul>
+    {% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}! </p>
+        <p>First Name: {{ profile_data.first_name }} </p>
+        <p>Last Name: {{ profile_data.last_name }}</p>
+        <p>Personal Number: {{ profile_data.personal_number }}</p>
+        <p>Team: {{ profile_data.team }}</p>
+        <p>Platoon: {{ profile_data.platoon }}</p>
+        <p>Company: {{ profile_data.company }}</p>
+        <p>Brigade: {{ profile_data.brigade}}</p>
+        <div>
+            <h4> MOS's (Military Occupational Specialties)</h4>
+            <form class="scrollable-mos-list">
+                {% for mos in  profile_data.mos%}
+                    <ul>{{ mos }}</ul>
+                {% endfor %}
+            </form>
+
+        </div>
+        <a href="{% url 'logout' %}">Logout</a>
+
+    {% endif %}
+
 </div>
     <script src="{% static "js/register_form_handler.js" %}"></script>
 

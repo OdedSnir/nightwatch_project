@@ -1,12 +1,15 @@
-from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, JsonResponse
 from .models import *
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from .forms import UserForm, NightwatchUserForm
+
 
 
 # Create your views here.
 # handles the request responce logic for your app
 
-def index(request: HttpRequest) -> HttpResponse:
+def index(request: HttpRequest) -> HttpResponse: # not used anymore
     MOSs = MOS.objects.all()
     context = {"MOSs": MOSs}
     return render(request, 'index.html', context=context)
@@ -38,10 +41,6 @@ def load_teams(request: HttpRequest):
         teams = Team.objects.all().order_by('letter')
     return JsonResponse(list(teams.values('id', 'letter')), safe=False)
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import login
-from .forms import UserForm, NightwatchUserForm
-
 
 def register(request: HttpRequest):
     if request.method == 'POST':
@@ -64,3 +63,16 @@ def register(request: HttpRequest):
         nightwatch_form = NightwatchUserForm()
 
     return render(request, 'register.html', {'user_form': user_form, 'nightwatch_form': nightwatch_form})
+
+def profile_view(request: HttpRequest):
+    user = request.user
+    profile_data:dict = {}
+    if user is not None and user.is_authenticated:
+        profile_data.update(model_to_dict(user))
+        nightwatch_user = NightwatchUser.objects.filter(user=user).first()
+        if nightwatch_user is not None:
+            profile_data.update(nightwatch_user.get_presentable_dict())
+
+    return render(request, 'index.html', {'profile_data': profile_data})
+
+

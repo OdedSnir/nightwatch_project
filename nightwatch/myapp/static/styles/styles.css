@@ -1,5 +1,4 @@
 /* General styling */
-/* General styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;  /* Light grey background */
@@ -8,8 +7,11 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start; /* Align content to the top */
+    min-height: 100vh;  /* Ensure the body covers at least the viewport height */
+    padding: 20px; /* Add padding to prevent content from sticking to the edges */
+    box-sizing: border-box;
+    overflow-x: hidden;  /* Prevent horizontal scroll */
 }
 
 /* Container for centering content */
@@ -21,6 +23,7 @@ body {
     max-width: 600px;
     width: 100%;
     text-align: center;  /* Center-align text */
+    margin-bottom: 20px; /* Add margin at the bottom for spacing */
 }
 
 /* Header styling */
@@ -29,122 +32,21 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* List styling */
-ul {
-    list-style-type: none;  /* Remove default bullet points */
-    padding: 0;
-    margin: 0;
-}
-
-li {
-    background-color: #e0f7e9;  /* Light green background for list items */
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #b2dfdb;  /* Slightly darker green border */
-}
-
-/* Link styling */
-a {
-    color: #2ecc71;  /* Green color for links */
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Button styling (if needed) */
-button {
-    background-color: #2ecc71;  /* Green background for buttons */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background-color: #27ae60;  /* Darker green on hover */
-}
-
-/* General Form Styling */
+/* Form */
 form {
     background-color: #f9f9f9; /* Light background for the form */
     border-radius: 8px; /* Rounded corners for the form */
     padding: 20px; /* Space inside the form */
     max-width: 600px; /* Maximum width of the form */
-    margin: 20px auto; /* Center the form horizontally */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow to lift form off the page */
-}
-
-/* Form Inputs */
-input[type="text"], input[type="email"], input[type="password"], textarea, select {
-    width: 100%; /* Full width inputs */
-    padding: 10px; /* Padding inside input fields */
-    margin: 10px 0; /* Space between input fields */
-    border: 1px solid #ccc; /* Light border */
-    border-radius: 4px; /* Rounded corners */
-    font-size: 16px; /* Text size */
-    box-sizing: border-box; /* Makes padding and border included in the total width */
-}
-
-/* Placeholder Text Styling */
-input::placeholder {
-    color: #999; /* Lighter text for placeholders */
-}
-
-/* Input Focus Effect */
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, textarea:focus, select:focus {
-    border-color: #4CAF50; /* Green border on focus */
-    outline: none; /* Removes the default focus outline */
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Green glow on focus */
-}
-
-/* Labels */
-label {
-    font-weight: bold; /* Make labels bold */
-    display: block; /* Each label on a new line */
-    margin-bottom: 5px; /* Space between label and input */
-}
-
-/* Submit Button */
-button[type="submit"] {
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
-    padding: 10px 20px; /* Space inside the button */
-    border: none; /* Remove default borders */
-    border-radius: 4px; /* Rounded corners */
-    font-size: 16px; /* Font size */
-    cursor: pointer; /* Pointer on hover */
-    transition: background-color 0.3s ease; /* Smooth background change on hover */
-    margin-top: 10px;
-}
-
-/* Submit Button Hover Effect */
-button[type="submit"]:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
-
-/* Error Message Styling */
-.error-message {
-    color: red; /* Red text for errors */
-    font-size: 14px; /* Slightly smaller text */
-    margin-top: 5px; /* Space above the error message */
+    margin-bottom: 20px;
 }
 
 /* Scrollable MOS list */
-.scrollable-mos-list {
-    max-height: 150px; /* Limit height */
-    overflow-y: scroll; /* Enable vertical scrolling */
-    border: 1px solid #ccc; /* Light border */
-    padding: 10px; /* Padding around the MOS items */
-    background-color: #fff; /* White background */
-}
-
-/* MOS list item styling */
-.scrollable-mos-list li {
-    margin-bottom: 5px; /* Space between items */
-    font-size: 16px; /* Font size for items */
+#id_mos {
+    max-height: 200px; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #6f6f6f; /* Optional: Add border to visually define the area */
+    padding: 10px; /* Optional: Add padding */
+    background-color: #f9f9f9; /* Optional: Set background color */
 }

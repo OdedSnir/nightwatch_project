@@ -55,9 +55,10 @@ def register(request: HttpRequest):
             nightwatch_user = nightwatch_form.save(commit=False)
             nightwatch_user.user = user
             nightwatch_user.save()
+            nightwatch_form.save_m2m()
 
             login(request, user)
-            return redirect('index')
+            return redirect('home')
     else:
         user_form = UserForm()
         nightwatch_form = NightwatchUserForm()

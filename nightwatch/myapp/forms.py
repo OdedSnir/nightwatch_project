@@ -8,6 +8,11 @@ class UserForm(forms.ModelForm):
 
 
 class NightwatchUserForm(forms.ModelForm):
+    mos = forms.ModelMultipleChoiceField(
+        queryset=MOS.objects.order_by('name'),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
     class Meta:
         model = NightwatchUser
         fields = ['personal_number', 'available', 'brigade', 'company', 'platoon',  'team', 'mos']

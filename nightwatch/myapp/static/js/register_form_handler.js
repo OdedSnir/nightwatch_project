@@ -1,4 +1,5 @@
-        $(document).ready(function() {
+
+$(document).ready(function() {
         $("#id_brigade").change(function() {
             let brigadeId = $(this).val();
 

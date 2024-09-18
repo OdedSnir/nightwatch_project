@@ -14,6 +14,7 @@ class NightwatchUserSerializer(ModelSerializer):
         model = NightwatchUser
         fields = ['id', 'personal_number', 'available', 'brigade', 'company', 'platoon',  'team', 'mos']
         read_only_fields = ['id']
+        depth = 1
 
 
 class BrigadeSerializer(ModelSerializer):

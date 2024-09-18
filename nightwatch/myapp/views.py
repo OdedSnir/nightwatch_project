@@ -3,7 +3,7 @@ from .models import *
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import UserForm, NightwatchUserForm
-
+from .api.serializer import MyUserSerializer, NightwatchUserSerializer
 
 
 # Create your views here.

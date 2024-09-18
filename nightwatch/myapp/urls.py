@@ -12,6 +12,7 @@ router.register(r'brigades', BrigadeViewSet)
 router.register(r'companies', CompanyViewSet)
 router.register(r'platoons', PlatoonViewSet)
 router.register(r'teams', TeamViewSet)
+router.register(r'MOS', MOSViewSet)
 
 urlpatterns = [
     path('', views.profile_view, name= "home"),
